@@ -1,0 +1,25 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="max-width:300px;">
+  <div>
+    <div style="width: 50%; float: left;">
+      <h2>
+          <i>{{ title }}</i>
+      </h2>
+    </div>
+    <div style="width: 50%; text-align: right;  float: left;">
+        <h2>
+            {{ timeString }}
+        </h2>
+    </div>
+  </div>
+<div *ngIf="trainSchedule.length > 0 else noTrains">
+  <div *ngFor="let train of trainSchedule; index as i; let even = even; let odd = odd" 
+  style="height: 35px;">
+    <div style="text-align: left; max-width:30px; width: 10%; float:left;">{{ i + 1 }}.</div>
+    <div style="text-align: left; width: 45%; float:left;">{{ train.name }}</div>
+    <div style="text-align: right; width: 45%; float:right;">{{ train.toa }}</div>
+  </div>
+</div>
+
+<ng-template #noTrains>No trains at the moment</ng-template>
+</div>
