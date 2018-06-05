@@ -75,6 +75,7 @@ export class AppComponent {
     startDate = new Date(startDate).setMinutes(0);
     startDate = new Date(startDate).setSeconds(0);
     this.startDateObj = new Date(startDate);
+    this.setTimeString();
 
     this.clockTimer = setInterval(() => {
       this.ntiTick();
@@ -85,6 +86,10 @@ export class AppComponent {
   // Ticker updating the time every minute. (VT) 1min = 1sec
   ntiTick() {
     this.startDateObj = new Date(new Date(this.startDateObj).getTime() + (1000 * 60));
+    this.setTimeString();
+  }
+
+  setTimeString() {
     this.timeString = this.startDateObj.toLocaleTimeString();
   }
 
@@ -99,7 +104,7 @@ export class AppComponent {
         // Train has arrived.
         this.insertAndSort({
           name: element.name,
-          toaNum: 0,
+          toaMins: 0,
           toa: "Train has arrived"
         }, this.trainSchedule);
       }
@@ -110,7 +115,7 @@ export class AppComponent {
           if (element.hasArrived(this.addMinutes(this.startDateObj, estimatedTimeInMins))) {
             this.insertAndSort({
               name: element.name,
-              toaNum: estimatedTimeInMins,
+              toaMins: estimatedTimeInMins,
               toa: estimatedTimeInMins + (estimatedTimeInMins == 1 ? " minute" : " minutes")
             }, this.trainSchedule);
             break;
@@ -124,7 +129,7 @@ export class AppComponent {
   insertAndSort(element, array) {
     array.push(element);
     array.sort(function(a, b) {
-      return a.toaNum - b.toaNum;
+      return a.toaMins - b.toaMins;
     });
   }
   
